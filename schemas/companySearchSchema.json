@@ -1,0 +1,48 @@
+{
+    "$id": "http://example.com/example.json",
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "default": {},
+    "description": "The root schema comprises the entire JSON document.",
+    "examples": [{
+        "minEmployees": 200,
+        "maxEmployees": 300,
+        "name": "John"
+    }],
+    "required": [],
+    "title": "The root schema",
+    "type": "object",
+    "properties": {
+        "minEmployees": {
+            "$id": "#/properties/minEmployees",
+            "type": "integer",
+            "title": "The minEmployees schema",
+            "description": "The number of minimum employees.",
+            "default": 0,
+            "examples": [
+                200
+            ]
+        },
+        "maxEmployees": {
+            "$id": "#/properties/maxEmployees",
+            "type": "integer",
+            "title": "The maxEmployees schema",
+            "description": "The number of maximum employees.",
+            "default": 0,
+            "examples": [
+                300
+            ]
+        },
+        "name": {
+            "$id": "#/properties/name",
+            "default": "",
+            "description": "Company name.",
+            "examples": [
+                "John"
+            ],
+            "title": "The name schema",
+            "minLength": 1,
+            "type": "string"
+        }
+    },
+    "additionalProperties": true
+}
