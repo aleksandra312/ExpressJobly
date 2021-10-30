@@ -53,4 +53,28 @@ function sqlForQuerySearch(query = {}) {
     };
 }
 
-module.exports = { sqlForPartialUpdate, sqlForQuerySearch };
+function sqlForJobsQuerySearch(query = {}) {
+    const { minSalary, hasEquity, title } = query;
+
+    let queryValues = [];
+    let sql = [];
+
+    if (minSalary !== undefined) {
+        queryValues.push(minSalary);
+        sql.push(`salary >= $${queryValues.length}`);
+    }
+    if (hasEquity === true) {
+        sql.push(`equity > 0`);
+    }
+    if (title) {
+        queryValues.push(`%${title}%`);
+        sql.push(`title ILIKE $${queryValues.length}`);
+    }
+
+    return {
+        whereCols: sql.join(' AND '),
+        values: queryValues
+    };
+}
+
+module.exports = { sqlForPartialUpdate, sqlForQuerySearch, sqlForJobsQuerySearch };
