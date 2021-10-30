@@ -60,7 +60,9 @@ router.get('/', ensureAdmin, async function(req, res, next) {
 
 /** GET /[username] => { user }
  *
- * Returns { username, firstName, lastName, isAdmin }
+ * Returns { username, firstName, lastName, isAdmin, jobs }
+ * where jobs is { id, title, companyHandle, companyName, state }
+ *
  *
  * Authorization required: admin or current user
  **/
@@ -108,6 +110,20 @@ router.delete('/:username', ensureValidUser, async function(req, res, next) {
     try {
         await User.remove(req.params.username);
         return res.json({ deleted: req.params.username });
+    } catch (err) {
+        return next(err);
+    }
+});
+
+/** POST /[username]/jobs/[id]  =>  { applied: jobId }
+ *
+ * Authorization required: admin or same user
+ **/
+
+router.post('/:username/jobs/:id', ensureValidUser, async function(req, res, next) {
+    try {
+        await User.applyForJob(req.params.username, req.params.id);
+        return res.json({ applied: req.params.id });
     } catch (err) {
         return next(err);
     }
