@@ -86,14 +86,13 @@ class Company {
             `SELECT id,
                   title,
                   salary,
-                  equity,
-                  company_handle AS "companyHandle"
+                  equity
            FROM jobs
            WHERE company_handle = $1
            ORDER BY id`, [handle]
         );
 
-        company.jobs = jobsRes;
+        company.jobs = jobsRes.rows;
 
         return company;
     }
