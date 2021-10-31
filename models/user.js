@@ -218,7 +218,7 @@ class User {
             WHERE id = $1`, [jobId]
         );
         const job = jobRes.rows[0];
-        if (!job) throw new NotFoundError(`No job: ${id}`);
+        if (!job) throw new NotFoundError(`No job: ${jobId}`);
 
         //insert application record
         await db.query(
